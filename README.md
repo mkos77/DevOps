@@ -1,6 +1,5 @@
 # DevOps
-#Komendy pomocnicze
-
+Komendy pomocnicze
 docker run hello-world - uruchomienie konterera
 docker ps - pokazuje jakie sa uruchomione kontenery
 docker ps --all - pokazuje wszystkie kontenery
@@ -13,6 +12,5 @@ docker start [id] - start konterera
 docker start -a [id] - start konterera z wyświetleniem outputu z terminala
 docker stop [id] - zatrzymanie konterera
 docker exec -it [id] sh - dostep do kontenera
-
 docker image prune --all - usuwanie wszystkich niewykorzystywanych kontenerów
 docker build . - kropka domyslny katalog
