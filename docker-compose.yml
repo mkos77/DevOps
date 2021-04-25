@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  myredis:
+    image: 'redis:alpine'
+  mypostgres:
+    image: 'postgres:alpine'
+    environment:
+      - POSTGRES_PASSWORD=1qaz2wsx
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - C:\Users\Michał\Documents\GitHub\DevOps\backend\postgresdata:/var/lib/postgresql/data
+  backend:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./backend
+    volumes:
+      - /opt/app/node_modules
+      - C:\Users\Michał\Documents\GitHub\DevOps\backend:/opt/app
+    environment:
+      - POSTGRES_PASSWORD=1qaz2wsx
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_HOST=mypostgres
+      - REDIS_HOST=myredis
+    ports:
+      - "5000:4000"
+
+  

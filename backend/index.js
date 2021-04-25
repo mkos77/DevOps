@@ -40,7 +40,7 @@ pgClient
 // pgClient.query(`INSERT INTO movies (name) VALUES ('TEST NAME');`).
 // catch((err) => {console.log(err)});
 
-const PORT = 5000;
+const PORT = 4000;
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -101,6 +101,19 @@ app.post("/movie", function (req, res) {
       res.send("Dodano film w Postgres i Redis");
     }
   );
+});
+
+app.delete("/movie/:id", (req, res) => {
+  const id = request.params.id;
+
+  redisClient.exists(id, (err, redis) => {
+      if (redis == 1) {
+          redisClient.del(`${id}`);
+      }
+  });
+
+  pgClient.query(`DELETE FROM movies WHERE id = '${id}';`);
+  res.send("Usunięto film w Postgres i Redis");
 });
 
 app.listen(PORT, () => {
