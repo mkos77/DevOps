@@ -2,8 +2,10 @@ version: '3'
 
 services:
   myredis:
+    container_name: myredis
     image: 'redis:alpine'
   mypostgres:
+    container_name: mypostgres
     image: 'postgres:alpine'
     environment:
       - POSTGRES_PASSWORD=1qaz2wsx
@@ -12,6 +14,7 @@ services:
     volumes:
       - C:\Users\Michał\Documents\GitHub\DevOps\backend\postgresdata:/var/lib/postgresql/data
   backend:
+    container_name: backend
     build:
       dockerfile: Dockerfile.dev
       context: ./backend
@@ -19,13 +22,17 @@ services:
       - /opt/app/node_modules
       - C:\Users\Michał\Documents\GitHub\DevOps\backend:/opt/app
     environment:
-      - POSTGRES_PASSWORD=1qaz2wsx
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=postgres
-      - POSTGRES_HOST=mypostgres
-      - REDIS_HOST=myredis
-    ports:
-      - "5000:4000"
+      #- POSTGRES_PASSWORD=1qaz2wsx
+      #- POSTGRES_USER=postgres
+      #- POSTGRES_DB=postgres
+      #- POSTGRES_HOST=mypostgres
+      #- REDIS_HOST=myredis
+      CHOKIDAR_USEPOLLING: "true"
+    depends_on:
+      - mypostgres
+      - myredis
+    #ports:
+    #  - "5000:4000"
   nginx:
     restart: always
     build:

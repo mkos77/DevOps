@@ -57,7 +57,7 @@ app.get("/movie", (req, res) => {
   });
 });
 
-app.get("api/movie/:id", (req, res) => {
+app.get("/movie/:id", (req, res) => {
   const id = req.params.id;
   redisClient.exists(id, (err, redis) => {
     if (redis == 1) {
@@ -87,7 +87,7 @@ app.get("api/movie/:id", (req, res) => {
   });
 });
 
-app.post("api/movie", function (req, res) {
+app.post("/movie", function (req, res) {
   const { name } = req.body;
   pgClient.query(
     `INSERT INTO movies (name) VALUES ('${name}') RETURNING id`,
@@ -103,7 +103,7 @@ app.post("api/movie", function (req, res) {
   );
 });
 
-app.delete("api/movie/:id", (req, res) => {
+app.delete("/movie/:id", (req, res) => {
   const id = request.params.id;
 
   redisClient.exists(id, (err, redis) => {
