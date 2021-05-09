@@ -26,5 +26,21 @@ services:
       - REDIS_HOST=myredis
     ports:
       - "5000:4000"
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+        - "9090:80"
+  frontend:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./frontend
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    volumes: 
+      - /opt/app/node_modules
+      - C:\Users\Michał\Documents\GitHub\DevOps\frontend:/opt/app
 
   
