@@ -31,6 +31,7 @@ services:
     depends_on:
       - mypostgres
       - myredis
+    command: ./wait-for-it.sh mypostgres:5432 -t 15 -- npm run dev
     #ports:
     #  - "5000:4000"
   nginx:
