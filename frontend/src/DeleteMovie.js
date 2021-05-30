@@ -4,7 +4,7 @@ import axios from 'axios';
 const DeleteMovie = (props) => {
 
     const submit = (event) => {
-        axios.delete(`api/movie/${props.id}`)
+        axios.delete(`/movie/${props.id}`)
             .then((response) => {
                 console.log(response);
             })

@@ -7,7 +7,7 @@ const MovieList = (props) => {
     const [movie, setMovie] = useState([]);
 
     useEffect(() => {
-        axios.get('api/movie')
+        axios.get('/movie')
             .then(response => setMovie(response.data))
             .catch(error => console.log(error));
     }, []);

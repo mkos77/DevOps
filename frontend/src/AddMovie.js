@@ -6,7 +6,7 @@ const AddMovie = (props) => {
     const [name, setName] = useState("");
 
     const submit = (event) => {
-        axios.post('api/movie', {
+        axios.post('/movie', {
             name: name,
         })
         .then((response) => {
