@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myredis-configmap
+
+data:
+  REDIS_HOST: myredis-cluster-ip-service
+  REDIS_PORT: '6379'

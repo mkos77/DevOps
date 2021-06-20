@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myredis-deployment
+  labels:
+    app: myredis
+    component: cache
+
+spec:
+  template:
+    metadata:
+      name: myredis-pod
+      labels:
+        app: myredis
+        component: cache
+    spec:
+      containers:
+        - name: myredis-container
+          image: redis:alpine
+          ports:
+            - containerPort: 6379
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myredis
+      component: cache

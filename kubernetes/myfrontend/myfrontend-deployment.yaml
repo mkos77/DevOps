@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myfrontend-deployment
+  labels:
+    app: myfrontend
+    component: frontend
+
+spec:
+  template:
+    metadata:
+      name: myfrontend-pod
+      labels:
+        app: myfrontend
+        component: frontend
+    spec:
+      containers:
+        - name: myfrontend-container
+          image: mkos77/myfrontend:latest
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myfrontend
+      component: frontend

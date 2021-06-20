@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mybackend-deployment
+  labels:
+    app: mybackend
+    component: backend
+
+spec:
+  template:
+    metadata:
+      name: mybackend-pod
+      labels:
+        app: mybackend
+        component: backend
+    spec:
+      containers:
+        - name: mybackend-container
+          image: mkos77/mybackend:latest
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: mybackend-configmap
+                  key: API_PORT
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mypostgres-configmap
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mypostgres-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mypostgres-configmap
+                  key: POSTGRES_DATABASE
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mypostgres-configmap
+                  key: POSTGRES_HOST
+            - name: POSTGRES_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: mypostgres-configmap
+                  key: POSTGRES_PORT
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: myredis-configmap
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: myredis-configmap
+                  key: REDIS_PORT
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mybackend
+      component: backend
